@@ -1,6 +1,7 @@
 package abdul.springframework.recipe_project.domain;
 
 import javax.persistence.*;
+import java.util.Set;
 
 /**
  * Created by 4bdul on 10/06/2018 at 2:31 PM.
@@ -28,6 +29,10 @@ public class Recipe {
 
     @OneToOne(cascade = CascadeType.ALL)
     private Notes notes;
+
+
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "recipe")
+    private Set<Ingredient> ingredients;
 
     public Long getId() {
         return id;
