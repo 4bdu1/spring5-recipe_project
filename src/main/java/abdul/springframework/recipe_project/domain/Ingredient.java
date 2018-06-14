@@ -1,11 +1,14 @@
 package abdul.springframework.recipe_project.domain;
 
+import lombok.Data;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 
 /**
  * Created by 4bdul on 11/06/2018 at 5:11 AM.
  */
+@Data
 @Entity
 public class Ingredient {
 
@@ -21,24 +24,6 @@ public class Ingredient {
 
     @ManyToOne
     private Recipe recipe;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public UnitOfMeasure getUom() {
-        return uom;
-    }
-
-    public void setUom(UnitOfMeasure uom) {
-        this.uom = uom;
-    }
-
-
 
     public Ingredient() {
     }
@@ -56,27 +41,4 @@ public class Ingredient {
         this.recipe = recipe;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public BigDecimal getAmount() {
-        return amount;
-    }
-
-    public void setAmount(BigDecimal amount) {
-        this.amount = amount;
-    }
-
-    public Recipe getRecipe() {
-        return recipe;
-    }
-
-    public void setRecipe(Recipe recipe) {
-        this.recipe = recipe;
-    }
 }

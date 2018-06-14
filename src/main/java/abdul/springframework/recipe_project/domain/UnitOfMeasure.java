@@ -1,10 +1,13 @@
 package abdul.springframework.recipe_project.domain;
 
+import lombok.Data;
+
 import javax.persistence.*;
 
 /**
  * Created by 4bdul on 11/06/2018 at 5:18 AM.
  */
+@Data
 @Entity
 public class UnitOfMeasure {
 
@@ -16,27 +19,4 @@ public class UnitOfMeasure {
     @OneToOne
     private Ingredient ingredient;
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getUom() {
-        return uom;
-    }
-
-    public void setUom(String uom) {
-        this.uom = uom;
-    }
-
-    public Ingredient getIngredient() {
-        return ingredient;
-    }
-
-    public void setIngredient(Ingredient ingredient) {
-        this.ingredient = ingredient;
-    }
 }
