@@ -1,6 +1,8 @@
 package abdul.springframework.recipe_project.controllers;
 
 import abdul.springframework.recipe_project.commands.IngredientCommand;
+import abdul.springframework.recipe_project.commands.RecipeCommand;
+import abdul.springframework.recipe_project.commands.UnitOfMeasureCommand;
 import abdul.springframework.recipe_project.services.IngredientService;
 import abdul.springframework.recipe_project.services.RecipeService;
 import abdul.springframework.recipe_project.services.UnitOfMeasureService;
@@ -44,6 +46,28 @@ public class IngredientController {
         model.addAttribute("ingredient", ingredientService.findByRecipeIdAndIngredientId(Long.valueOf(recipeId), Long.valueOf(id)));
         return "recipe/ingredient/show";
     }
+
+    @GetMapping
+    @RequestMapping("recipe/{recipeId}/ingredient/new")
+    public String newIngredient(@PathVariable String recipeId, Model model){
+
+        //make sure we have a good id value
+        RecipeCommand recipeCommand = recipeService.findCommandById(Long.valueOf(recipeId));
+        //todo raise exception if null
+
+        //need to return back parent id for hidden form property
+        IngredientCommand ingredientCommand = new IngredientCommand();
+        ingredientCommand.setRecipeId(Long.valueOf(recipeId));
+        model.addAttribute("ingredient", ingredientCommand);
+
+        //init uom
+        ingredientCommand.setUom(new UnitOfMeasureCommand());
+
+        model.addAttribute("uomList",  unitOfMeasureService.listAllUoms());
+
+        return "recipe/ingredient/ingredientform";
+    }
+
 
     @GetMapping
     @RequestMapping("recipe/{recipeId}/ingredient/{id}/update")

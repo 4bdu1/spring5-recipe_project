@@ -1,13 +1,15 @@
 package abdul.springframework.recipe_project.domain;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 
 /**
  * Created by 4bdul on 11/06/2018 at 5:18 AM.
  */
-@Data
+@Getter
+@Setter
 @Entity
 public class UnitOfMeasure {
 
