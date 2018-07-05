@@ -1,8 +1,10 @@
 package abdul.springframework.recipe_project.services;
 
+import abdul.springframework.recipe_project.commands.RecipeCommand;
 import abdul.springframework.recipe_project.converters.RecipeCommandToRecipe;
 import abdul.springframework.recipe_project.converters.RecipeToRecipeCommand;
 import abdul.springframework.recipe_project.domain.Recipe;
+import abdul.springframework.recipe_project.exceptions.NotFoundException;
 import abdul.springframework.recipe_project.repositories.RecipeRepository;
 import org.junit.Before;
 import org.junit.Test;
@@ -40,6 +42,8 @@ public class RecipeServiceImplTest {
         recipeService = new RecipeServiceImpl(recipeRepository, recipeCommandToRecipe, recipeToRecipeCommand);
     }
 
+
+
     @Test
     public void getRecipeByIdTest() throws Exception {
         Recipe recipe = new Recipe();
@@ -54,6 +58,40 @@ public class RecipeServiceImplTest {
         verify(recipeRepository,times(1)).findById(anyLong());
         verify(recipeRepository,never()).findAll();
     }
+
+    @Test(expected = NotFoundException.class)
+    public void getRecipeByIdTestNotFound() throws Exception {
+
+        Optional<Recipe> recipeOptional = Optional.empty();
+
+        when(recipeRepository.findById(anyLong())).thenReturn(recipeOptional);
+
+        Recipe recipeReturned = recipeService.findById(1L);
+
+        //should go boom
+    }
+
+
+    @Test
+    public void getRecipeCommandByIdTest() throws Exception {
+        Recipe recipe = new Recipe();
+        recipe.setId(1L);
+        Optional<Recipe> recipeOptional = Optional.of(recipe);
+
+        when(recipeRepository.findById(anyLong())).thenReturn(recipeOptional);
+
+        RecipeCommand recipeCommand = new RecipeCommand();
+        recipeCommand.setId(1L);
+
+        when(recipeToRecipeCommand.convert(any())).thenReturn(recipeCommand);
+
+        RecipeCommand commandById = recipeService.findCommandById(1L);
+
+        assertNotNull("Null recipe returned", commandById);
+        verify(recipeRepository, times(1)).findById(anyLong());
+        verify(recipeRepository, never()).findAll();
+    }
+
 
     @Test
     public void getRecipesTest() {

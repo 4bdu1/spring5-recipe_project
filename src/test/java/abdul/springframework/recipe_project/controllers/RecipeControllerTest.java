@@ -2,6 +2,7 @@ package abdul.springframework.recipe_project.controllers;
 
 import abdul.springframework.recipe_project.commands.RecipeCommand;
 import abdul.springframework.recipe_project.domain.Recipe;
+import abdul.springframework.recipe_project.exceptions.NotFoundException;
 import abdul.springframework.recipe_project.services.RecipeService;
 import org.junit.Before;
 import org.junit.Test;
@@ -52,6 +53,17 @@ public class RecipeControllerTest {
                 .andExpect(view().name("recipe/show"))
                 .andExpect(model().attributeExists("recipe"));
     }
+
+    @Test
+    public void testGetRecipeNotFound() throws Exception {
+
+        when(recipeService.findById(anyLong())).thenThrow(NotFoundException.class);
+
+        mockMvc.perform(get("/recipe/1/show"))
+                .andExpect(status().isNotFound())
+                .andExpect(view().name("404error"));
+    }
+
 
     @Test
     public void testGetNewRecipeForm() throws Exception {
