@@ -1,0 +1,2 @@
+[![CircleCI](https://circleci.com/gh/Abdul-Aziz-T/spring5-recipe_project.svg?style=svg)](https://circleci.com/gh/Abdul-Aziz-T/spring5-recipe_project)
+[![codecov](https://codecov.io/gh/Abdul-Aziz-T/spring5-recipe_project/branch/master/graph/badge.svg)](https://codecov.io/gh/Abdul-Aziz-T/spring5-recipe_project)
